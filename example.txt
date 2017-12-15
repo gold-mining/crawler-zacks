@@ -1,0 +1,7 @@
+Single Thread:
+	mode=single-thread stock-list=null date=20171211 output=/Users/james/tmp
+	java -Xms4096M -Xmx8192M -cp ./target/crawler-zacks-0.0.1-SNAPSHOT-jar-with-dependencies.jar com.james.runner.ZacksRunner mode=single-thread stock-list=/Users/james/tmp/2017-12-06.txt date=20171211 output=/Users/james/tmp
+
+Multithread:
+	mode=multithread thread=10 stock-list=null date=20171211 output=/Users/james/tmp
+	java -Xms4096M -Xmx8192M -cp ./target/crawler-zacks-0.0.1-SNAPSHOT-jar-with-dependencies.jar com.james.runner.ZacksRunner mode=multithread stock-list=/Users/james/tmp/2017-12-06.txt date=20171211 output=/Users/james/tmp thread=10
