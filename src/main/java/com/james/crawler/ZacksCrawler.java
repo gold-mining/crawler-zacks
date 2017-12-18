@@ -41,13 +41,9 @@ public class ZacksCrawler {
 	public void getDetailInfo() {
 		try {
 			Document document = Jsoup.connect("https://www.zacks.com/stock/quote/" + this.ticker).get();
-			this.writer = new PrintWriter(finalOutPath + "/" + this.ticker + ".txt", "UTF-8");
-			
 			ZackData zackData = getZackData(document);
-			
-			this.writer.println(ZackData.getLable());
-			this.writer.println(zackData);
-			this.writer.close();
+			outputToFile(zackData);
+			outputToConsole(zackData);
 		} catch (Exception e) {
 			System.err.println(this.ticker);
 			e.printStackTrace();
@@ -96,6 +92,20 @@ public class ZacksCrawler {
 		return zackData;		
 	}
 
+	public void outputToFile(ZackData zackData) throws Exception {
+		this.writer = new PrintWriter(finalOutPath + "/" + this.ticker + ".txt", "UTF-8");
+		this.writer.println(this.ticker);
+		this.writer.println("\t" + ZackData.getLable());
+		this.writer.println("\t" + zackData);
+		this.writer.close();
+	}
+	
+	public void outputToConsole(ZackData zackData) throws Exception {
+		System.out.println(this.ticker);
+		System.out.println("\t" + ZackData.getLable());
+		System.out.println("\t" + zackData);
+	}
+	
 	private boolean isFileExist() {
 		File file = new File(finalOutPath + "/" + this.ticker + ".txt");
 		return file.exists() && file.length() != 0;
