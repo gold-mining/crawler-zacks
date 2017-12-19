@@ -43,7 +43,7 @@ public class ZacksCrawler {
 			Document document = Jsoup.connect("https://www.zacks.com/stock/quote/" + this.ticker).get();
 			ZackData zackData = getZackData(document);
 			outputToFile(zackData);
-			outputToConsole(zackData);
+			// outputToConsole(zackData);
 		} catch (Exception e) {
 			System.err.println(this.ticker);
 			e.printStackTrace();
