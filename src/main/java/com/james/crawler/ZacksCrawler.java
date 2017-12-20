@@ -45,8 +45,8 @@ public class ZacksCrawler {
 			outputToFile(zackData);
 			// outputToConsole(zackData);
 		} catch (Exception e) {
-			System.err.println(this.ticker);
-			e.printStackTrace();
+			System.out.println(this.ticker);
+			System.out.println(e.toString());
 		}
 	}
 
