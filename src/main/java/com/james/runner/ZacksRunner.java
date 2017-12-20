@@ -42,7 +42,8 @@ public class ZacksRunner {
 	public void getDataMultiThread(String threadNumber, String stockList, String date, String output) {
 		try {
 			Queue<String> queue = getStockListFromFile(stockList);
-
+			Queue<String> finished = new LinkedList<String>();
+			
 			ExecutorService executor = Executors.newFixedThreadPool(Integer.parseInt(threadNumber));
 
 			while (!queue.isEmpty()) {
@@ -50,19 +51,23 @@ public class ZacksRunner {
 					String stock;
 					String date;
 					String output;
+					Queue<String> finished;
 					public void run() {
 						ZacksCrawler crawler = new ZacksCrawler();
 						if(crawler.initCrawler(stock, date, output)) crawler.getDetailInfo();
+						finished.offer(stock);
+						System.err.print(finished.size() + " ");
 					}
 
-					private Runnable init(String stock, String date, String output) {
+					private Runnable init(String stock, String date, String output, Queue<String> finished) {
 						System.err.print(stock + " ");
 						this.stock = stock;
 						this.date = date;
 						this.output = output;
+						this.finished = finished;
 						return this;
 					}
-				}.init(queue.poll(), date, output));
+				}.init(queue.poll(), date, output, finished));
 			}
 
 			executor.shutdown();
