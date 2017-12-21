@@ -15,6 +15,7 @@ public class ZacksCrawler {
 		try {
 			Document document = Jsoup.connect("https://www.zacks.com/stock/quote/" + ticker).get();
 			ZackData zackData = getZackData(document);
+			zackData.ticker = ticker;
 			return zackData;
 		} catch (Exception e) {
 			System.out.println("There is something wrong when find zacks data for " + ticker);

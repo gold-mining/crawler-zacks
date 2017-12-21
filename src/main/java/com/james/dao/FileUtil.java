@@ -30,7 +30,7 @@ public class FileUtil {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
-				stockQueue.add(line.split("\t")[0]);
+				stockQueue.add(line.split("\t")[0].replace("-", "."));
 			}
 			fileReader.close();
 		} catch (IOException e) {
