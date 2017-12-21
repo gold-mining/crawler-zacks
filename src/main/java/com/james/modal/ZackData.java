@@ -1,6 +1,7 @@
 package com.james.modal;
 
 public class ZackData {
+	public String ticker;
 	public String Price;
 	public String Industry;
 	public String IndustrySection;
@@ -33,7 +34,11 @@ public class ZackData {
 	
 	@Override
 	public String toString() {
-		return Price + "\t" + Industry + "\t" + IndustrySection + "\t" + ZacksRank + "\t" + IndustryRank + "\t" + ZacksSectorRank + "\t" + ValueScores + "\t" + GrowthScores + "\t" + MomentumScores + "\t" + TotalScores + "\t" + Open + "\t" + DayLow + "\t" + DayHigh + "\t" + Low52Wk + "\t" + High52Wk + "\t" + AvgVolume + "\t" + MarketCap + "\t" + Dividend + "\t" + Beta + "\t" + EarningsESP + "\t" + MostAccurateEst + "\t" + CurrentQtrEst + "\t" + CurrentYrEst + "\t" + ExpEarningsDate + "\t" + PriorYearEPS + "\t" + ExpEPSGrowth + "\t" + ForwardPE + "\t" + PEGRatio;
+		String output = "";
+		output += ticker + "\n";
+		output += "\t" + "Price" + "\t" + "Industry" + "\t" + "IndustrySection" + "\t" + "ZacksRank" + "\t" + "IndustryRank" + "\t" + "ZacksSectorRank" + "\t" + "ValueScores" + "\t" + "GrowthScores" + "\t" + "MomentumScores" + "\t" + "TotalScores" + "\t" + "Open" + "\t" + "DayLow" + "\t" + "DayHigh" + "\t" + "Low52Wk" + "\t" + "High52Wk" + "\t" + "AvgVolume" + "\t" + "MarketCap" + "\t" + "Dividend" + "\t" + "Beta" + "\t" + "EarningsESP" + "\t" + "MostAccurateEst" + "\t" + "CurrentQtrEst" + "\t" + "CurrentYrEst" + "\t" + "ExpEarningsDate" + "\t" + "PriorYearEPS" + "\t" + "ExpEPSGrowth" + "\t" + "ForwardPE" + "\t" + "PEGRatio" + "\n";
+		output += "\t" + Price + "\t" + Industry + "\t" + IndustrySection + "\t" + ZacksRank + "\t" + IndustryRank + "\t" + ZacksSectorRank + "\t" + ValueScores + "\t" + GrowthScores + "\t" + MomentumScores + "\t" + TotalScores + "\t" + Open + "\t" + DayLow + "\t" + DayHigh + "\t" + Low52Wk + "\t" + High52Wk + "\t" + AvgVolume + "\t" + MarketCap + "\t" + Dividend + "\t" + Beta + "\t" + EarningsESP + "\t" + MostAccurateEst + "\t" + CurrentQtrEst + "\t" + CurrentYrEst + "\t" + ExpEarningsDate + "\t" + PriorYearEPS + "\t" + ExpEPSGrowth + "\t" + ForwardPE + "\t" + PEGRatio + "\n";
+		return output;		
 	}
 	
 	public static String getLable() {

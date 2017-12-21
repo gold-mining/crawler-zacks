@@ -1,8 +1,5 @@
 package com.james.crawler;
 
-import java.io.File;
-import java.io.PrintWriter;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,40 +10,16 @@ import com.james.modal.ZackData;
 import us.codecraft.xsoup.Xsoup;
 
 public class ZacksCrawler {
-
-	private String ticker = "";
-
-	private String finalOutPath = "";
-
-	private PrintWriter writer;
-
-	public ZacksCrawler() {
-		super();
-	}
-
-	public boolean initCrawler(String ticker, String date, String output) {
-		this.ticker = ticker;
-		this.finalOutPath = output + "/" + date;
-		if (isFileExist()) return false;
-
-		try {
-			new File(finalOutPath).mkdirs();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
 	
-	public void getDetailInfo() {
+	public ZackData getDetailInfo(String ticker) {
 		try {
-			Document document = Jsoup.connect("https://www.zacks.com/stock/quote/" + this.ticker).get();
+			Document document = Jsoup.connect("https://www.zacks.com/stock/quote/" + ticker).get();
 			ZackData zackData = getZackData(document);
-			outputToFile(zackData);
-			// outputToConsole(zackData);
+			return zackData;
 		} catch (Exception e) {
-			System.out.println(this.ticker);
+			System.out.println("There is something wrong when find zacks data for " + ticker);
 			System.out.println(e.toString());
+			return null;
 		}
 	}
 
@@ -91,24 +64,4 @@ public class ZacksCrawler {
 		
 		return zackData;		
 	}
-
-	public void outputToFile(ZackData zackData) throws Exception {
-		this.writer = new PrintWriter(finalOutPath + "/" + this.ticker + ".txt", "UTF-8");
-		this.writer.println(this.ticker);
-		this.writer.println("\t" + ZackData.getLable());
-		this.writer.println("\t" + zackData);
-		this.writer.close();
-	}
-	
-	public void outputToConsole(ZackData zackData) throws Exception {
-		System.out.println(this.ticker);
-		System.out.println("\t" + ZackData.getLable());
-		System.out.println("\t" + zackData);
-	}
-	
-	private boolean isFileExist() {
-		File file = new File(finalOutPath + "/" + this.ticker + ".txt");
-		return file.exists() && file.length() != 0;
-	}
-
 }
