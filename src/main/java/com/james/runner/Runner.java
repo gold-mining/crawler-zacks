@@ -29,8 +29,8 @@ public class Runner {
 		Runner runner = new Runner();
 
 		switch (input.get("mode")) {
-			case "single-thread": runner.getZacksData(input.get("stock-list"), input.get("date"), input.get("output")); break;
-			case "multithread": runner.getZacksData(input.get("stock-list"), input.get("date"), input.get("output"), input.get("thread")); break;
+			case "single-thread": runner.getZacksData(input.get("stock-list"), input.get("output")); break;
+			case "multithread": runner.getZacksData(input.get("stock-list"), input.get("output"), input.get("thread")); break;
 			default: break;
 		}
 
@@ -38,13 +38,13 @@ public class Runner {
 		System.out.println(date2.getTime() - date1.getTime());
 	}
 	
-	public void getZacksData(String stockList, String date, String output, String threadNumber) {
+	public void getZacksData(String stockList, String output, String threadNumber) {
 		try {
 			Queue<String> queue = FileUtil.getStockListFromFile(stockList);			
 			ExecutorService executor = Executors.newFixedThreadPool(Integer.parseInt(threadNumber));
 
 			while (!queue.isEmpty()) {
-				executor.execute(new ZacksRunner(queue.poll(), date, output));
+				executor.execute(new ZacksRunner(queue.poll(), output));
 			}
 
 			executor.shutdown();
@@ -54,10 +54,10 @@ public class Runner {
 		}
 	}
 	
-	public void getZacksData(String stockList, String date, String output) {
+	public void getZacksData(String stockList, String output) {
 		Queue<String> queue = FileUtil.getStockListFromFile(stockList);
 		while (!queue.isEmpty()) {
-			ZacksRunner runner = new ZacksRunner(queue.poll(), date, output);
+			ZacksRunner runner = new ZacksRunner(queue.poll(), output);
 			runner.run();
 		}
 	}
@@ -67,9 +67,9 @@ public class Runner {
 		private String ticker; 
 		private String finalPath;
 		
-		public ZacksRunner(String ticker, String date, String output) {
+		public ZacksRunner(String ticker, String output) {
 			this.ticker = ticker;
-			this.finalPath = output + "/" + date;
+			this.finalPath = output;
 		}
 		
 		@Override
